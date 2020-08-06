@@ -1,4 +1,4 @@
-name := "game"
+name := "rs.dxt.breakout"
 
 version := "0.1"
 

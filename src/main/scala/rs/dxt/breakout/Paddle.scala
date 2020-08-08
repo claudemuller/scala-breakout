@@ -20,7 +20,10 @@ class Paddle extends Collision {
     if (x < 0) x = 0 else if (x > Gdx.graphics.getWidth - w) x = Gdx.graphics.getWidth - w
   }
 
-  def draw(shape: ShapeRenderer): Unit = shape.rect(x, y, w, h)
+  def draw(shape: ShapeRenderer): Unit = {
+    shape.setColor(Color.WHITE)
+    shape.rect(x, y, w, h)
+  }
 
   def checkCollision(ball: Ball): Unit = {
     if (collidesWith(ball)) {

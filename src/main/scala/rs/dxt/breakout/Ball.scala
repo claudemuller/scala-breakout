@@ -11,33 +11,11 @@ class Ball(var x: Int, var y: Int, var size: Int, var xSpeed: Int, var ySpeed: I
     x += xSpeed
     y += ySpeed
     if (x < size / 2 || x > Gdx.graphics.getWidth - size / 2) xSpeed = -xSpeed
-    if (y < size / 2 || y > Gdx.graphics.getHeight - size / 2) {
-      ySpeed = -ySpeed
-    }
+    if (y < size / 2 || y > Gdx.graphics.getHeight - size / 2) ySpeed = -ySpeed
   }
 
   def draw(shape: ShapeRenderer): Unit = {
     shape.setColor(colour)
     shape.circle(x, y, size)
-  }
-
-  def checkCollision(paddle: Paddle): Unit = {
-    if (collidesWith(paddle)) {
-      colour = Color.GREEN
-    } else {
-      colour = Color.WHITE
-    }
-  }
-
-  private def collidesWith(paddle: Paddle): Boolean = {
-    if (
-      y < paddle.y + size + paddle.h
-        && x > paddle.x
-        && x < paddle.x + paddle.w
-    ) {
-      true
-    } else {
-      false
-    }
   }
 }

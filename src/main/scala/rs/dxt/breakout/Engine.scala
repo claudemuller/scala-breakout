@@ -9,22 +9,36 @@ class Engine extends Game {
   var shape: ShapeRenderer = _
   var ball: Ball = _
   var paddle: Paddle = _
+  var blocks: Seq[Block] = Seq[Block]()
 
   override def create(): Unit = {
     shape = new ShapeRenderer
-    ball = new Ball(Gdx.graphics.getWidth / 2, Gdx.graphics.getHeight / 2, rad, 0, 0)
+    ball = new Ball(Gdx.graphics.getWidth / 2, Gdx.graphics.getHeight / 2, rad, 3, 3)
     paddle = new Paddle
+
+    val blockWidth = 63
+    val blockHeight = 20
+    for (y <- Gdx.graphics.getWidth / 2 to Gdx.graphics.getHeight by blockHeight + 10) {
+      for (x <- 0 to Gdx.graphics.getWidth by blockWidth + 10)
+        blocks = blocks :+ Block(x, y, blockWidth, blockHeight)
+    }
+  }
+
+  def update(): Unit = {
+    paddle.update()
+    ball.update()
+    paddle.checkCollision(ball)
+    for (b <- blocks) b.checkCollision(ball)
   }
 
   override def render(): Unit = {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-
     shape.begin(ShapeRenderer.ShapeType.Filled)
 
-    paddle.update()
+    update()
+
+    for (b <- blocks) b.draw(shape)
     paddle.draw(shape)
-    ball.update()
-    ball.checkCollision(paddle)
     ball.draw(shape)
 
     shape.end()

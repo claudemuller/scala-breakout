@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.{Game, Gdx}
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.ParticleEffect
 
 class Engine extends Game {
   val rad = 20
@@ -13,12 +14,17 @@ class Engine extends Game {
   var blocks: Seq[Block] = Seq[Block]()
   var colours: Seq[Color] = Seq[Color](Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED, Color.YELLOW,
     Color.GREEN, Color.BLUE)
+//  var effect: ParticleEffect = _
 
   override def create(): Unit = {
     shape = new ShapeRenderer
     ball = new Ball(Gdx.graphics.getWidth / 2, Gdx.graphics.getHeight / 2, rad, 3, 3)
     paddle = new Paddle
     var colour: Color = colours.head
+
+//    effect = new ParticleEffect()
+//    effect.load(Gdx.files.internal("effects/test"), Gdx.files.internal("effects");
+//    effect.start()
 
     val blockWidth = 63
     val blockHeight = 20
@@ -45,6 +51,7 @@ class Engine extends Game {
     for (b <- blocks) b.draw(shape)
     paddle.draw(shape)
     ball.draw(shape)
+//    effect.draw()
 
     shape.end()
   }
